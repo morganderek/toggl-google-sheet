@@ -2,13 +2,13 @@
 
 This Google Apps script imports time entries from Toggl.com into a Google Sheet using their [Detailed Report API](https://github.com/toggl/toggl_api_docs/blob/master/reports/detailed.md).
 
-For a given month it aggregates the time entries per day and per customer.
+For a given month it displays in a sheet all your tasks. [Date - Who - Hours - Description]
 
 ## Installation
 
 ### Simple
 
-Open [this Google Sheet](https://docs.google.com/spreadsheets/d/1rXMdRwkMCeC2kq0yEMb54Y8SU2DUk-TFOJ0gxgBugEk/edit?usp=sharing) and make a copy in your Google Drive account.
+Open [this Google Sheet](https://drive.google.com/open?id=1Aqlg4CXQZHHJcX6Zlknv7gzuMjKuzXmLzBMjqM66cFM) and make a copy in your Google Drive account.
 
 ### From scratch
 
@@ -25,9 +25,7 @@ To figure out your *api_token*: go to your Profile in toggl.com, your API token 
 ## Usage
 After a reopen of your Google Sheet you will have a new menu open called "*Toggl*" with a sub-menu "*Get Timesheet for Month*". 
 
-Fill a date of the month you want to import in cell B1. So if you want your timesheet for December 2014, fill the date 01/12/2014 and click *Toggl > Get Timesheet for Month*.
-
-In addition it also calculates the number of meal vouchers you are entitled to receive for that month (which is a Belgian invention to lower personal income taxes).
+Fill a date of the month you want to import in cell B1. So if you want your timesheet for December 2016, fill the date 01/12/2016 and click *Toggl > Get Timesheet for Month*.
 
 ## Acknowledgment
 Credits go to [koen-github](https://github.com/koen-github) which provided an example on how to use the Toggl API with Google Sheet.

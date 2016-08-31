@@ -40,7 +40,7 @@ function fetchTimesheet(apiToken, workspaceId, since, until) {
   var numberOfPages = Math.ceil(report.total_count/ report.per_page);
   Logger.log("number of pages: " + numberOfPages);
   var page = 1;
-  var count=1;
+  var count = 0;
   do {
     for (var i = 0; i < report.data.length; i++) {
       var timeEntry = report.data[i];
@@ -50,9 +50,14 @@ function fetchTimesheet(apiToken, workspaceId, since, until) {
       var description = timeEntry.description;
       var user = timeEntry.user;
 
-      Logger.log("add " + start.getDate() + " to timesheet");
-      timesheet[count] = {date:start.toDateString(),client:client,duration:duration,description:description,user:user};
-      count++;
+
+      var hours = millisToDecimalHours(duration);
+      hours = Math.round((hours+0.00001) * 100) / 100;
+      if(hours>0){
+        Logger.log("add " + start.getDate() + " to timesheet");
+        timesheet[count] = {date:start.toDateString(),client:client,duration:duration,description:description,user:user};
+        count++;
+      }
     }
 
     ++page;
@@ -79,12 +84,10 @@ function createTimesheet(startDate, timeZone, timesheet) {
   titles.setFontWeights([["bold", "bold", "bold", "bold", "bold"]]);
 
   var row = 2
-  for (var i = 1; i < timesheet.length; i++) {
+  for (var i = 0; i < timesheet.length; i++) {
     var entry = timesheet[i];
-    
-    var hours = millisToDecimalHours(entry.duration);
-    hours = Math.round(hours * 100) / 100;
-    sheet.getRange(row, 1, 1, 5).setValues([[entry.date, entry.user, entry.client, hours, entry.description]]);
+
+    sheet.getRange(row, 1, 1, 5).setValues([[entry.date, entry.user, entry.client, entry.duration, entry.description]]);
     sheet.getRange(row, 1).setNumberFormat("dd/MM/yyyy")
     ++row;
   }
